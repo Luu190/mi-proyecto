@@ -1,10 +1,16 @@
-function ForgotPasswordPage() {
+export default function ForgotPage() {
   return (
-    <div>
+    <div className="page-container">
       <h1>Recuperar Contraseña</h1>
-      <p>Aquí el usuario solicita recuperar su contraseña.</p>
+
+      <form>
+        <label>Correo electrónico</label>
+        <input type="email" placeholder="Ingresa tu correo" />
+
+        <button>Enviar enlace</button>
+      </form>
+
+      <a href="#">Volver al Login</a>
     </div>
   );
 }
-
-export default ForgotPasswordPage;

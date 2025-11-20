@@ -7,7 +7,7 @@ import ResetPage from './pages/ResetPage/ResetPage.jsx'
 function App() {
   return (
     <>
-      <ForgotPasswordPage/>
+      <LoginPage/>
       
     </>
   )
