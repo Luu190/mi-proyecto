@@ -1,0 +1,70 @@
+/* ==== ESTILOS GENERALES DEL PROYECTO ==== */
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+}
+
+/* Contenedor general de todas las páginas */
+.card-container {
+  width: 400px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+/* Títulos */
+.title-lg {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.title-md {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Botones */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: #1a73e8;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #1257b5;
+}
+
+.btn-secondary {
+  background: white;
+  border: 2px solid #1a73e8;
+  color: #1a73e8;
+}
+
+.btn-secondary:hover {
+  background: #e8f1ff;
+}
