@@ -1,19 +1,45 @@
-export default function ResetPage() {
+import "./ResetPage.css";
+
+function ResetPage() {
   return (
-    <div className="page-container">
-      <h1>Restablecer Contraseña</h1>
+    <div className="auth-container">
+      <h2 className="auth-title">Restablecer contraseña</h2>
 
-      <form>
-        <label>Nueva contraseña</label>
-        <input type="password" />
+      <p className="auth-description">
+        Escribe tu nueva contraseña y confírmala para actualizar tu acceso.
+      </p>
 
-        <label>Repetir contraseña</label>
-        <input type="password" />
+      <form className="auth-form">
+        <div className="auth-field">
+          <label className="auth-label">Nueva contraseña</label>
+          <input
+            type="password"
+            className="auth-input"
+            placeholder="Nueva contraseña"
+          />
+        </div>
 
-        <button>Guardar nueva contraseña</button>
+        <div className="auth-field">
+          <label className="auth-label">Repetir contraseña</label>
+          <input
+            type="password"
+            className="auth-input"
+            placeholder="Repítela de nuevo"
+          />
+        </div>
+
+        <button type="button" className="btn primary">
+          Guardar contraseña
+        </button>
       </form>
 
-      <a href="#">Volver al Login</a>
+      <div className="auth-links">
+        <a href="#" className="link-text">
+          Volver al Login
+        </a>
+      </div>
     </div>
   );
 }
+
+export default ResetPage;

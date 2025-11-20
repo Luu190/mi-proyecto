@@ -1,22 +1,48 @@
-export default function LoginPage() {
+import "./LoginPage.css";
+
+function LoginPage() {
   return (
-    <div className="page-container">
-      <h1>Iniciar Sesión</h1>
+    <div className="auth-container">
+      <h2 className="auth-title">Iniciar sesión</h2>
 
-      <form>
-        <label>Correo electrónico</label>
-        <input type="email" placeholder="Ingresa tu correo" />
+      <form className="auth-form">
+        <div className="auth-field">
+          <label className="auth-label">Correo electrónico</label>
+          <input
+            type="email"
+            className="auth-input"
+            placeholder="ejemplo@correo.com"
+          />
+        </div>
 
-        <label>Contraseña</label>
-        <input type="password" placeholder="Ingresa tu contraseña" />
+        <div className="auth-field">
+          <label className="auth-label">Contraseña</label>
+          <input
+            type="password"
+            className="auth-input"
+            placeholder="Ingresa tu contraseña"
+          />
+        </div>
 
-        <button>Entrar</button>
+        <button type="button" className="btn primary">
+          Entrar
+        </button>
+
+        <button type="button" className="btn secondary">
+          Continuar con Google
+        </button>
       </form>
 
-      <div className="links">
-        <a href="#">Crear cuenta</a>
-        <a href="#">¿Olvidaste tu contraseña?</a>
+      <div className="auth-links">
+        <a href="#" className="link-text">
+          Crear cuenta
+        </a>
+        <a href="#" className="link-text">
+          ¿Olvidaste tu contraseña?
+        </a>
       </div>
     </div>
   );
 }
+
+export default LoginPage;

@@ -1,0 +1,7 @@
+@import "../LoginPage/LoginPage.css";
+
+.auth-description {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 16px;
+}

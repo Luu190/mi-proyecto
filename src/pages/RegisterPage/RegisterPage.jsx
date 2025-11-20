@@ -1,31 +1,59 @@
-export default function RegisterPage() {
+import "./RegisterPage.css";
+
+function RegisterPage() {
   return (
-    <div className="page-container">
-      <h1>Registro</h1>
+    <div className="auth-container">
+      <h2 className="auth-title">Crear cuenta</h2>
 
-      <form>
-        <label>Correo electrónico</label>
-        <input type="email" />
+      <form className="auth-form">
+        <div className="auth-field">
+          <label className="auth-label">Nombre completo</label>
+          <input
+            type="text"
+            className="auth-input"
+            placeholder="Tu nombre y apellido"
+          />
+        </div>
 
-        <label>Cédula</label>
-        <input type="text" />
+        <div className="auth-field">
+          <label className="auth-label">Correo electrónico</label>
+          <input
+            type="email"
+            className="auth-input"
+            placeholder="ejemplo@correo.com"
+          />
+        </div>
 
-        <label>Fecha de nacimiento</label>
-        <input type="date" />
+        <div className="auth-field">
+          <label className="auth-label">Contraseña</label>
+          <input
+            type="password"
+            className="auth-input"
+            placeholder="Crea una contraseña"
+          />
+        </div>
 
-        <label>Teléfono</label>
-        <input type="number" />
+        <div className="auth-field">
+          <label className="auth-label">Repetir contraseña</label>
+          <input
+            type="password"
+            className="auth-input"
+            placeholder="Repítela de nuevo"
+          />
+        </div>
 
-        <label>Contraseña</label>
-        <input type="password" />
-
-        <label>Repetir contraseña</label>
-        <input type="password" />
-
-        <button>Registrarse</button>
+        <button type="button" className="btn primary">
+          Registrarse
+        </button>
       </form>
 
-      <a href="#">Volver al Login</a>
+      <div className="auth-links">
+        <a href="#" className="link-text">
+          ¿Ya tienes cuenta? Inicia sesión
+        </a>
+      </div>
     </div>
   );
 }
+
+export default RegisterPage;

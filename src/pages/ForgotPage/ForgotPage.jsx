@@ -1,16 +1,37 @@
-export default function ForgotPage() {
+import "./ForgotPage.css";
+
+function ForgotPage() {
   return (
-    <div className="page-container">
-      <h1>Recuperar Contraseña</h1>
+    <div className="auth-container">
+      <h2 className="auth-title">¿Olvidaste tu contraseña?</h2>
 
-      <form>
-        <label>Correo electrónico</label>
-        <input type="email" placeholder="Ingresa tu correo" />
+      <p className="auth-description">
+        Ingresa tu correo electrónico y te enviaremos un enlace para
+        restablecer tu contraseña.
+      </p>
 
-        <button>Enviar enlace</button>
+      <form className="auth-form">
+        <div className="auth-field">
+          <label className="auth-label">Correo electrónico</label>
+          <input
+            type="email"
+            className="auth-input"
+            placeholder="ejemplo@correo.com"
+          />
+        </div>
+
+        <button type="button" className="btn primary">
+          Enviar enlace
+        </button>
       </form>
 
-      <a href="#">Volver al Login</a>
+      <div className="auth-links">
+        <a href="#" className="link-text">
+          Volver al inicio de sesión
+        </a>
+      </div>
     </div>
   );
 }
+
+export default ForgotPage;
