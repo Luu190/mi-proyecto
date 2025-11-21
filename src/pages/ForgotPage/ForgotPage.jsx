@@ -1,37 +1,30 @@
-import "./ForgotPage.css";
+import Header from "../../components/Header";
 
-function ForgotPage() {
+export default function ForgotPage() {
   return (
-    <div className="auth-container">
-      <h2 className="auth-title">¿Olvidaste tu contraseña?</h2>
+    <>
+      <Header />
 
-      <p className="auth-description">
-        Ingresa tu correo electrónico y te enviaremos un enlace para
-        restablecer tu contraseña.
-      </p>
+      <div className="layout-container">
+        <div className="layout-content">
 
-      <form className="auth-form">
-        <div className="auth-field">
-          <label className="auth-label">Correo electrónico</label>
-          <input
-            type="email"
-            className="auth-input"
-            placeholder="ejemplo@correo.com"
-          />
+          <h2>¿Olvidaste tu contraseña?</h2>
+
+          <p>
+            Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+          </p>
+
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="ejemplo@correo.com" />
+
+          <button>Enviar enlace</button>
+
+          <p style={{ marginTop: "1rem" }}>
+            <a href="/login">Volver al inicio de sesión</a>
+          </p>
+
         </div>
-
-        <button type="button" className="btn primary">
-          Enviar enlace
-        </button>
-      </form>
-
-      <div className="auth-links">
-        <a href="#" className="link-text">
-          Volver al inicio de sesión
-        </a>
       </div>
-    </div>
+    </>
   );
 }
-
-export default ForgotPage;

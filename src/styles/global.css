@@ -1,70 +1,61 @@
-/* ==== ESTILOS GENERALES DEL PROYECTO ==== */
-
+/* ===== ESTILOS GENERALES ===== */
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f7fb;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background: #f5f6fa;
+  color: #2c3e50;
 }
 
-/* Contenedor general de todas las páginas */
-.card-container {
-  width: 400px;
-  margin: 60px auto;
-  padding: 40px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-  text-align: center;
+/* ===== CENTRADO GLOBAL ===== */
+.layout-container {
+  min-height: calc(100vh - 0px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Títulos */
-.title-lg {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 25px;
-}
-
-.title-md {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 15px;
+.layout-content {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
 /* Inputs */
-.input {
+input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #dcdde1;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  font-size: 15px;
 }
 
 /* Botones */
-.btn {
+button {
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  background: #0984e3;
+  border: none;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  transition: 0.2s ease;
 }
 
-.btn-primary {
-  background: #1a73e8;
-  color: white;
-  border: none;
-}
-
-.btn-primary:hover {
-  background: #1257b5;
-}
-
-.btn-secondary {
+/* Header SOLO PARA DASHBOARD */
+.header {
+  width: 100%;
   background: white;
-  border: 2px solid #1a73e8;
-  color: #1a73e8;
-}
-
-.btn-secondary:hover {
-  background: #e8f1ff;
+  border-bottom: 1px solid #eee;
+  padding: 15px 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }

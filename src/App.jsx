@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./styles/global.css";
 
-// Importación correcta de las páginas
-import LoginPage from "./pages/LoginPage/LoginPage.jsx";
-import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
-import ForgotPasswordPage from "./pages/ForgotPage/ForgotPage.jsx";
-import ResetPage from "./pages/ResetPage/ResetPage.jsx";
-import DashboardPage from "./dashboard/DashboardPage.jsx";
 
-function App() {
+
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import ForgotPasswordPage from "./pages/ForgotPage/ForgotPage";
+import ResetPage from "./pages/ResetPage/ResetPage";
+import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
+
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -21,5 +21,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

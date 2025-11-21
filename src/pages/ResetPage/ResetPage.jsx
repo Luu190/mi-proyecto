@@ -1,45 +1,33 @@
-import "./ResetPage.css";
+import Header from "../../components/Header";
 
-function ResetPage() {
+export default function ResetPage() {
   return (
-    <div className="auth-container">
-      <h2 className="auth-title">Restablecer contraseña</h2>
+    <>
+      <Header />
 
-      <p className="auth-description">
-        Escribe tu nueva contraseña y confírmala para actualizar tu acceso.
-      </p>
+      <div className="layout-container">
+        <div className="layout-content">
 
-      <form className="auth-form">
-        <div className="auth-field">
-          <label className="auth-label">Nueva contraseña</label>
-          <input
-            type="password"
-            className="auth-input"
-            placeholder="Nueva contraseña"
-          />
+          <h2>Restablecer contraseña</h2>
+
+          <p>
+            Escribe tu nueva contraseña y confírmala para actualizar tu acceso.
+          </p>
+
+          <label>Nueva contraseña</label>
+          <input type="password" placeholder="Nueva contraseña" />
+
+          <label>Repetir contraseña</label>
+          <input type="password" placeholder="Repítela de nuevo" />
+
+          <button>Guardar contraseña</button>
+
+          <p style={{ marginTop: "1rem" }}>
+            <a href="/login">Volver al Login</a>
+          </p>
+
         </div>
-
-        <div className="auth-field">
-          <label className="auth-label">Repetir contraseña</label>
-          <input
-            type="password"
-            className="auth-input"
-            placeholder="Repítela de nuevo"
-          />
-        </div>
-
-        <button type="button" className="btn primary">
-          Guardar contraseña
-        </button>
-      </form>
-
-      <div className="auth-links">
-        <a href="#" className="link-text">
-          Volver al Login
-        </a>
       </div>
-    </div>
+    </>
   );
 }
-
-export default ResetPage;
