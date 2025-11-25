@@ -1,4 +1,4 @@
-// src/playground/HomeHooks.jsx
+// src/pages/playground/HomeHooks.jsx
 import { Link } from "react-router-dom";
 
 const hooksData = [
@@ -11,56 +11,93 @@ const hooksData = [
   },
   {
     hook: "useEffect",
-    descripcion: "Ejecuta efectos secundarios cuando cambia el estado o las props.",
+    descripcion:
+      "Ejecuta efectos secundarios cuando cambia el estado o las props.",
     ruta: "/hooks/useeffect",
     componente: "UseEffectDemo",
     categoria: "Efectos",
   },
   {
     hook: "useRef",
-    descripcion: "Crea una referencia mutable para acceder al DOM o guardar valores.",
+    descripcion:
+      "Crea una referencia mutable para acceder al DOM o guardar valores.",
     ruta: "/hooks/useref",
     componente: "UseRefDemo",
     categoria: "Referencias",
+  },
+  {
+    hook: "useMemo",
+    descripcion:
+      "Memoriza valores para evitar cálculos pesados en cada render.",
+    ruta: "/hooks/usememo",
+    componente: "UseMemoDemo",
+    categoria: "Performance",
+  },
+  {
+    hook: "useCallback",
+    descripcion: "Memoriza funciones para evitar recrearlas.",
+    ruta: "/hooks/usecallback",
+    componente: "UseCallbackDemo",
+    categoria: "Performance",
+  },
+  {
+    hook: "useNavigate",
+    descripcion: "Permite navegar entre rutas del proyecto.",
+    ruta: "/hooks/usenavigate",
+    componente: "UseNavigateDemo",
+    categoria: "Navegación",
+  },
+  {
+    hook: "useContext",
+    descripcion:
+      "Comparte datos globales entre componentes sin props.",
+    ruta: "/hooks/usecontext",
+    componente: "UseContextDemo",
+    categoria: "Estado Global",
+  },
+  {
+    hook: "useReducer",
+    descripcion:
+      "Maneja estados complejos con lógica avanzada.",
+    ruta: "/hooks/usereducer",
+    componente: "UseReducerDemo",
+    categoria: "Estado Avanzado",
   },
 ];
 
 export default function HomeHooks() {
   return (
     <div className="container py-4">
-      <h1 className="mb-3 text-center">Práctica de Hooks</h1>
+      <h1 className="mb-3 text-center">Tabla de Hooks — React</h1>
       <p className="text-center text-muted mb-4">
-        Tabla con algunos hooks de React y enlaces a sus ejemplos.
+        Lista completa de hooks con ejemplos navegables.
       </p>
 
       <table className="table table-striped table-bordered align-middle">
-        <thead className="table-light">
+        <thead className="table-dark">
           <tr>
             <th>Hook</th>
             <th>Descripción</th>
-            <th>Componente / Demo</th>
+            <th>Demo</th>
             <th>Categoría</th>
           </tr>
         </thead>
+
         <tbody>
           {hooksData.map((item) => (
             <tr key={item.hook}>
-              {/* Columna 1: nombre del hook */}
               <td>
                 <code>{item.hook}</code>
               </td>
 
-              {/* Columna 2: descripción */}
               <td>{item.descripcion}</td>
 
-              {/* Columna 3: botón que navega al demo */}
               <td>
-                <Link to={item.ruta} className="btn btn-sm btn-primary">
+                <Link to={item.ruta} className="btn btn-primary btn-sm">
                   Ver {item.componente}
                 </Link>
               </td>
 
-              {/* Columna 4: categoría */}
               <td>{item.categoria}</td>
             </tr>
           ))}
@@ -68,8 +105,8 @@ export default function HomeHooks() {
       </table>
 
       <p className="mt-4 small text-muted">
-        * Los hooks son funciones especiales de React que permiten usar estado,
-        efectos y otras características en componentes funcionales.
+        * Los hooks permiten manejar estado, efectos, navegación y
+        performance dentro de React.
       </p>
     </div>
   );
