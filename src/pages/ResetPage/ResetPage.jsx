@@ -1,33 +1,106 @@
-import Header from "../../components/Header";
+// src/pages/ResetPasswordPage.jsx
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function ResetPage() {
+function ResetPasswordPage() {
+  const [form, setForm] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMsg("");
+    setError("");
+
+    if (!form.password || !form.confirmPassword) {
+      setError("Completa ambos campos.");
+      return;
+    }
+    if (form.password.length < 6) {
+      setError("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+    if (form.password !== form.confirmPassword) {
+      setError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // Simulación de actualización de contraseña
+    setMsg("Contraseña actualizada correctamente. Redirigiendo al login...");
+    setForm({ password: "", confirmPassword: "" });
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1500);
+  };
+
   return (
-    <>
-      <Header />
+    <div
+      className="container d-flex justify-content-center align-items-center"
+      style={{ minHeight: "90vh" }}
+    >
+      <div className="col-md-5">
+        <div className="card shadow-lg border-0">
+          <div className="card-body p-4">
+            <h2 className="text-center mb-4 fw-bold">Restablecer contraseña</h2>
 
-      <div className="layout-container">
-        <div className="layout-content">
+            {error && (
+              <div className="alert alert-danger text-center py-2">{error}</div>
+            )}
+            {msg && (
+              <div className="alert alert-success text-center py-2">{msg}</div>
+            )}
 
-          <h2>Restablecer contraseña</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Nueva contraseña</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="********"
+                  value={form.password}
+                  onChange={handleChange}
+                />
+              </div>
 
-          <p>
-            Escribe tu nueva contraseña y confírmala para actualizar tu acceso.
-          </p>
+              <div className="mb-3">
+                <label className="form-label">
+                  Confirmar nueva contraseña
+                </label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  className="form-control"
+                  placeholder="********"
+                  value={form.confirmPassword}
+                  onChange={handleChange}
+                />
+              </div>
 
-          <label>Nueva contraseña</label>
-          <input type="password" placeholder="Nueva contraseña" />
+              <button className="btn btn-success w-100 py-2">
+                Guardar nueva contraseña
+              </button>
+            </form>
 
-          <label>Repetir contraseña</label>
-          <input type="password" placeholder="Repítela de nuevo" />
-
-          <button>Guardar contraseña</button>
-
-          <p style={{ marginTop: "1rem" }}>
-            <a href="/login">Volver al Login</a>
-          </p>
-
+            <div className="text-center mt-3">
+              <Link to="/login">Volver al login</Link>
+            </div>
+          </div>
         </div>
+
+       
       </div>
-    </>
+    </div>
   );
 }
+
+export default ResetPasswordPage;

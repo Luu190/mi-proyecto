@@ -1,112 +1,98 @@
 // src/pages/playground/HomeHooks.jsx
 import { Link } from "react-router-dom";
 
-const hooksData = [
+const hooks = [
   {
     hook: "useState",
-    descripcion: "Permite manejar estados en componentes funcionales.",
+    descripcion: "Maneja estados internos en componentes funcionales.",
     ruta: "/hooks/usestate",
-    componente: "UseStateDemo",
-    categoria: "Estado",
+    demo: "UseStateDemo",
+    categoria: "Estado"
   },
   {
     hook: "useEffect",
-    descripcion:
-      "Ejecuta efectos secundarios cuando cambia el estado o las props.",
+    descripcion: "Ejecuta efectos secundarios después de un render.",
     ruta: "/hooks/useeffect",
-    componente: "UseEffectDemo",
-    categoria: "Efectos",
+    demo: "UseEffectDemo",
+    categoria: "Efectos"
   },
   {
     hook: "useRef",
-    descripcion:
-      "Crea una referencia mutable para acceder al DOM o guardar valores.",
+    descripcion: "Referencia mutable para acceder al DOM.",
     ruta: "/hooks/useref",
-    componente: "UseRefDemo",
-    categoria: "Referencias",
+    demo: "UseRefDemo",
+    categoria: "Referencias"
   },
   {
     hook: "useMemo",
-    descripcion:
-      "Memoriza valores para evitar cálculos pesados en cada render.",
+    descripcion: "Memoriza cálculos pesados para evitar recomputar.",
     ruta: "/hooks/usememo",
-    componente: "UseMemoDemo",
-    categoria: "Performance",
+    demo: "UseMemoDemo",
+    categoria: "Performance"
   },
   {
     hook: "useCallback",
     descripcion: "Memoriza funciones para evitar recrearlas.",
     ruta: "/hooks/usecallback",
-    componente: "UseCallbackDemo",
-    categoria: "Performance",
+    demo: "UseCallbackDemo",
+    categoria: "Performance"
   },
   {
     hook: "useNavigate",
-    descripcion: "Permite navegar entre rutas del proyecto.",
+    descripcion: "Permite navegar entre rutas desde funciones.",
     ruta: "/hooks/usenavigate",
-    componente: "UseNavigateDemo",
-    categoria: "Navegación",
+    demo: "UseNavigateDemo",
+    categoria: "Navegación"
   },
   {
     hook: "useContext",
-    descripcion:
-      "Comparte datos globales entre componentes sin props.",
+    descripcion: "Comparte datos globales entre componentes.",
     ruta: "/hooks/usecontext",
-    componente: "UseContextDemo",
-    categoria: "Estado Global",
+    demo: "UseContextDemo",
+    categoria: "Estado Global"
   },
   {
     hook: "useReducer",
-    descripcion:
-      "Maneja estados complejos con lógica avanzada.",
+    descripcion: "Estados complejos con lógica avanzada.",
     ruta: "/hooks/usereducer",
-    componente: "UseReducerDemo",
-    categoria: "Estado Avanzado",
-  },
+    demo: "UseReducerDemo",
+    categoria: "Estado avanzado"
+  }
 ];
 
 export default function HomeHooks() {
   return (
     <div className="container py-4">
-      <h1 className="mb-3 text-center">Tabla de Hooks — React</h1>
-      <p className="text-center text-muted mb-4">
-        Lista completa de hooks con ejemplos navegables.
-      </p>
+      <h1 className="mb-4 text-center">Tabla Completa de Hooks</h1>
 
-      <table className="table table-striped table-bordered align-middle">
+      <table className="table table-bordered table-striped">
         <thead className="table-dark">
           <tr>
             <th>Hook</th>
             <th>Descripción</th>
-            <th>Demo</th>
+            <th>Ejemplo</th>
             <th>Categoría</th>
           </tr>
         </thead>
 
         <tbody>
-          {hooksData.map((item) => (
-            <tr key={item.hook}>
+          {hooks.map((h) => (
+            <tr key={h.hook}>
+              <td><code>{h.hook}</code></td>
+              <td>{h.descripcion}</td>
               <td>
-                <code>{item.hook}</code>
-              </td>
-
-              <td>{item.descripcion}</td>
-
-              <td>
-                <Link to={item.ruta} className="btn btn-primary btn-sm">
-                  Ver {item.componente}
+                <Link to={h.ruta} className="btn btn-primary btn-sm">
+                  Ver {h.demo}
                 </Link>
               </td>
-
-              <td>{item.categoria}</td>
+              <td>{h.categoria}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <p className="mt-4 small text-muted">
-        * Los hooks permiten manejar estado, efectos, navegación y
-        performance dentro de React.
+      <p className="mt-3 text-muted small">
+        * Hooks permiten manejar estado, efectos, navegación y performance dentro de React.
       </p>
     </div>
   );

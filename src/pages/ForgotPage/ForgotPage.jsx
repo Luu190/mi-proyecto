@@ -1,30 +1,75 @@
-import Header from "../../components/Header";
+// src/pages/ForgotPasswordPage.jsx
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function ForgotPage() {
+function ForgotPasswordPage() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!email.trim()) {
+      setMessage("Por favor escribe tu correo electrónico.");
+      return;
+    }
+
+    // Mensaje simulado
+    setMessage(
+      "Si el correo existe, te enviaremos un enlace para restablecer tu contraseña..."
+    );
+
+    // Simular espera y luego redirigir a reset password
+    setTimeout(() => {
+      navigate("/reset-password");
+    }, 1500);
+  };
+
   return (
-    <>
-      <Header />
+    <div
+      className="container d-flex justify-content-center align-items-center"
+      style={{ minHeight: "90vh" }}
+    >
+      <div className="col-md-5">
+        <div className="card shadow-lg border-0">
+          <div className="card-body p-4">
+            <h2 className="text-center mb-4 fw-bold">Recuperar contraseña</h2>
 
-      <div className="layout-container">
-        <div className="layout-content">
+            {message && (
+              <div className="alert alert-info text-center py-2">
+                {message}
+              </div>
+            )}
 
-          <h2>¿Olvidaste tu contraseña?</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Correo electrónico</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="ejemplo@correo.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-          <p>
-            Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
-          </p>
+              <button className="btn btn-primary w-100 py-2">
+                Enviar enlace
+              </button>
+            </form>
 
-          <label>Correo electrónico</label>
-          <input type="email" placeholder="ejemplo@correo.com" />
-
-          <button>Enviar enlace</button>
-
-          <p style={{ marginTop: "1rem" }}>
-            <a href="/login">Volver al inicio de sesión</a>
-          </p>
-
+            <div className="text-center mt-3">
+              <Link to="/login">Volver al login</Link>
+            </div>
+          </div>
         </div>
+
+        
       </div>
-    </>
+    </div>
   );
 }
+
+export default ForgotPasswordPage;
