@@ -1,6 +1,8 @@
 // src/pages/LoginPage.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { auth, signInWithGoogle } from "../../firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -11,7 +13,8 @@ function LoginPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // 🔥 LOGIN CON EMAIL Y CONTRASEÑA (REAL)
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -20,11 +23,29 @@ function LoginPage() {
       return;
     }
 
-    navigate("/dashboard");
+    try {
+      await signInWithEmailAndPassword(auth, form.email, form.password);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+
+      if (err.code === "auth/user-not-found")
+        setError("El correo no está registrado.");
+      else if (err.code === "auth/wrong-password")
+        setError("Contraseña incorrecta.");
+      else setError("Error al iniciar sesión.");
+    }
   };
 
-  const loginWithGoogle = () => {
-    alert("Login con Google (simulado)");
+  // 🔥 LOGIN CON GOOGLE
+  const loginWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      setError("Error al iniciar sesión con Google.");
+    }
   };
 
   return (
@@ -38,7 +59,7 @@ function LoginPage() {
 
             <h2 className="text-center mb-4 fw-bold">Iniciar Sesión</h2>
 
-            {/* BOTÓN GOOGLE CORRECTO */}
+            {/* Google */}
             <button
               className="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2 mb-3 py-2"
               onClick={loginWithGoogle}
@@ -47,27 +68,19 @@ function LoginPage() {
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                 alt="Google"
                 width="22"
-                height="22"
               />
               <span>Continuar con Google</span>
             </button>
 
-            {/* Separador */}
             <div className="d-flex align-items-center my-3">
               <hr className="flex-grow-1" />
               <span className="mx-2 text-muted">o</span>
               <hr className="flex-grow-1" />
             </div>
 
-            {/* Error */}
-            {error && (
-              <div className="alert alert-danger text-center py-2">
-                {error}
-              </div>
-            )}
+            {error && <div className="alert alert-danger text-center">{error}</div>}
 
-            {/* FORM */}
-            <form onSubmit={handleSubmit} noValidate>
+            <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Correo electrónico</label>
                 <input
@@ -95,20 +108,16 @@ function LoginPage() {
               </button>
             </form>
 
-            {/* Links */}
             <div className="text-center mt-3">
               <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
             </div>
 
             <div className="text-center mt-2">
-              ¿No tienes cuenta?{" "}
-              <Link to="/register">Regístrate aquí</Link>
+              ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
             </div>
 
           </div>
         </div>
-
-        
       </div>
     </div>
   );

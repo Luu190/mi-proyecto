@@ -3,6 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // LAYOUT GENERAL
 import MainLayout from "./layouts/MainLayout.jsx";
 
+// PROTECCIÓN DE RUTAS
+import RequireAuth from "./auth/RequireAuth.jsx";
+import GuestOnly from "./auth/GuestOnly.jsx";
+
 // PÁGINAS PRINCIPALES
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
@@ -28,20 +32,52 @@ export default function App() {
 
         {/* RUTA PADRE CON LAYOUT (Navbar + Footer) */}
         <Route path="/" element={<MainLayout />}>
-          {/* index = página principal */}
-          <Route index element={<LoginPage />} />
 
-          {/* RUTAS PRINCIPALES */}
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
+          {/* Página inicial → solo invitados */}
+          <Route
+            index
+            element={
+              <GuestOnly>
+                <LoginPage />
+              </GuestOnly>
+            }
+          />
+
+          {/* RUTAS SOLO PARA INVITADOS */}
+          <Route
+            path="login"
+            element={
+              <GuestOnly>
+                <LoginPage />
+              </GuestOnly>
+            }
+          />
+
+          <Route
+            path="register"
+            element={
+              <GuestOnly>
+                <RegisterPage />
+              </GuestOnly>
+            }
+          />
+
+          {/* RUTAS ACCESIBLES A TODOS */}
           <Route path="forgot-password" element={<ForgotPage />} />
           <Route path="reset-password" element={<ResetPage />} />
 
+          {/* RUTA PROTEGIDA */}
+          <Route
+            path="dashboard"
+            element={
+              <RequireAuth>
+                <DashboardPage />
+              </RequireAuth>
+            }
+          />
+
           {/* PLAYGROUND */}
           <Route path="homehooks" element={<HomeHooks />} />
-
-          {/* DEMOS DE HOOKS */}
           <Route path="hooks/usestate" element={<UseStateDemo />} />
           <Route path="hooks/useeffect" element={<UseEffectDemo />} />
           <Route path="hooks/useref" element={<UseRefDemo />} />
