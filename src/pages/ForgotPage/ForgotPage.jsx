@@ -14,7 +14,11 @@ function ForgotPasswordPage() {
     setErr("");
 
     try {
-      await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, email, {
+  url: "https://mi-proyecto-react-52faa.web.app/reset-password",
+  handleCodeInApp: true,
+});
+
       setMsg("Te enviamos un enlace para restablecer tu contraseña.");
     } catch (error) {
       if (error.code === "auth/user-not-found")

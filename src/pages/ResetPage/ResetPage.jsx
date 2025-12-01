@@ -1,90 +1,89 @@
-import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { confirmPasswordReset } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from "firebase/auth";
 
-function ResetPasswordPage() {
-  const [params] = useSearchParams();
-  const oobCode = params.get("oobCode");
-
-  const [form, setForm] = useState({
-    password: "",
-    confirmPassword: "",
-  });
-
-  const [msg, setMsg] = useState("");
-  const [error, setError] = useState("");
+export default function ResetPage() {
+  const [searchParams] = useSearchParams();
+  const oobCode = searchParams.get("oobCode");
   const navigate = useNavigate();
+  const auth = getAuth();
 
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const [email, setEmail] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [stage, setStage] = useState("loading"); 
+  const [error, setError] = useState("");
 
+  // 1️⃣ Verificar el código
+  useEffect(() => {
+    if (!oobCode) {
+      setError("Código inválido.");
+      setStage("error");
+      return;
+    }
+
+    verifyPasswordResetCode(auth, oobCode)
+      .then((email) => {
+        setEmail(email);
+        setStage("ready");
+      })
+      .catch(() => {
+        setError("El enlace expiró o es inválido.");
+        setStage("error");
+      });
+  }, [auth, oobCode]);
+
+  // 2️⃣ Enviar nueva contraseña
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMsg("");
-    setError("");
 
-    if (!form.password || !form.confirmPassword)
-      return setError("Completa ambos campos.");
-
-    if (form.password !== form.confirmPassword)
-      return setError("Las contraseñas no coinciden.");
+    if (newPass !== confirmPass) {
+      setError("Las contraseñas no coinciden.");
+      return;
+    }
 
     try {
-      await confirmPasswordReset(auth, oobCode, form.password);
-      setMsg("Contraseña actualizada correctamente.");
-      setTimeout(() => navigate("/login"), 1500);
+      await confirmPasswordReset(auth, oobCode, newPass);
+      alert("Contraseña cambiada correctamente.");
+      navigate("/login");
     } catch (err) {
-      console.error(err);
-      setError("El enlace no es válido o expiró.");
+      setError("Ocurrió un error al cambiar la contraseña.");
     }
   };
 
+  if (stage === "loading") return <p>Validando enlace...</p>;
+  if (stage === "error") return <p>{error}</p>;
+
   return (
-    <div className="container d-flex justify-content-center align-items-center"
-         style={{ minHeight: "90vh" }}>
-      <div className="col-md-5">
-        <div className="card shadow-lg border-0">
-          <div className="card-body p-4">
+    <div className="container py-5" style={{ maxWidth: "400px" }}>
+      <h2>Restablecer contraseña</h2>
+      <p>Correo asociado: <strong>{email}</strong></p>
 
-            <h2 className="text-center mb-4 fw-bold">Restablecer contraseña</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Nueva contraseña</label>
+        <input
+          type="password"
+          className="form-control mb-3"
+          value={newPass}
+          onChange={(e) => setNewPass(e.target.value)}
+          required
+        />
 
-            {error && <div className="alert alert-danger">{error}</div>}
-            {msg && <div className="alert alert-success">{msg}</div>}
+        <label>Confirmar contraseña</label>
+        <input
+          type="password"
+          className="form-control mb-3"
+          value={confirmPass}
+          onChange={(e) => setConfirmPass(e.target.value)}
+          required
+        />
 
-            <form onSubmit={handleSubmit}>
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-              <input
-                type="password"
-                name="password"
-                className="form-control mb-3"
-                placeholder="Nueva contraseña"
-                onChange={handleChange}
-              />
-
-              <input
-                type="password"
-                name="confirmPassword"
-                className="form-control mb-3"
-                placeholder="Confirmar contraseña"
-                onChange={handleChange}
-              />
-
-              <button className="btn btn-success w-100 py-2">
-                Guardar nueva contraseña
-              </button>
-            </form>
-
-            <div className="text-center mt-3">
-              <Link to="/login">Volver al login</Link>
-            </div>
-
-          </div>
-        </div>
-      </div>
+        <button className="btn btn-primary w-100" type="submit">
+          Guardar nueva contraseña
+        </button>
+      </form>
     </div>
   );
 }
-
-export default ResetPasswordPage;

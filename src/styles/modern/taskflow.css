@@ -1,0 +1,98 @@
+/* --- TIPOGRAFÍA --- */
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(180deg, #ffffff 0%, #f5f4ff 100%);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.login-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 100px;
+  min-height: 90vh;
+}
+
+/* --- COLUMNA IZQUIERDA --- */
+.login-left {
+  max-width: 450px;
+}
+
+.badge {
+  display: inline-block;
+  background: #ebe9ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #5a4ce3;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.login-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.login-title span {
+  color: #5a4ce3;
+}
+
+.login-desc {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 20px 0;
+}
+
+/* --- CHECKS ESTÉTICOS --- */
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.feature-icon {
+  width: 35px;
+  height: 35px;
+  background: #ebe9ff;
+  color: #5a4ce3;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- COLUMNA DERECHA / FORMULARIO --- */
+.login-card {
+  width: 420px;
+  background: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.login-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.login-card .form-label {
+  font-weight: 600;
+}
+
+.login-btn {
+  width: 100%;
+  background: #5a4ce3;
+  border: none;
+  padding: 12px;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  background: #4837d3;
+}

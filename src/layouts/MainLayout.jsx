@@ -1,20 +1,37 @@
-// src/layouts/MainLayout.jsx
-import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import "./Navbar.css";
 
-function MainLayout() {
+export default function MainLayout() {
+  const { pathname } = useLocation();
+
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Navbar />
+    <>
+      <nav className="nav-modern">
+        <div className="container nav-content">
+          {/* LOGO */}
+          <Link to="/" className="nav-logo">
+            React Auth App
+          </Link>
 
-      <main className="flex-grow-1">
+          {/* LINKS */}
+          <div className="nav-links">
+            <Link className={pathname === "/login" ? "active" : ""} to="/login">
+              Login
+            </Link>
+            <Link className={pathname === "/register" ? "active" : ""} to="/register">
+              Registro
+            </Link>
+            <Link className={pathname === "/dashboard" ? "active" : ""} to="/dashboard">
+              Dashboard
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* CONTENIDO */}
+      <main style={{ paddingTop: "90px" }}>
         <Outlet />
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }
-
-export default MainLayout;

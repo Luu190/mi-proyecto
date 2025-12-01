@@ -1,14 +1,13 @@
 // src/auth/GuestOnly.jsx
 import { Navigate } from "react-router-dom";
-import { auth } from "../firebase/firebase";
-
+import { useUser } from "../context/UserContext";
 
 export default function GuestOnly({ children }) {
-  const user = auth.currentUser;
+  const { user, loading } = useUser();
 
-  if (user) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  if (loading) return <p>Cargando...</p>;
+
+  if (user) return <Navigate to="/dashboard" replace />;
 
   return children;
 }

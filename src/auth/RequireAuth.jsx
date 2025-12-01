@@ -1,14 +1,13 @@
 // src/auth/RequireAuth.jsx
 import { Navigate } from "react-router-dom";
-import { auth } from "../firebase/firebase";
-
+import { useUser } from "../context/UserContext";
 
 export default function RequireAuth({ children }) {
-  const user = auth.currentUser;
+  const { user, loading } = useUser();
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  if (loading) return <p>Cargando...</p>;
+
+  if (!user) return <Navigate to="/login" replace />;
 
   return children;
 }

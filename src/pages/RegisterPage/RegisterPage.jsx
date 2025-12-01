@@ -1,9 +1,9 @@
-// src/pages/RegisterPage.jsx
+// src/pages/RegisterPage/RegisterPage.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp,  collection, query, where, getDocs } from "firebase/firestore";
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -25,24 +25,50 @@ function RegisterPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // --------------------------
+  // VALIDACIÓN PROFESIONAL
+  // --------------------------
   const validate = () => {
     const newErrors = [];
 
-    if (!form.name) newErrors.push("El nombre es obligatorio.");
-    if (!form.idNumber) newErrors.push("La cédula es obligatoria.");
+    // Trim para evitar espacios
+    const name = form.name.trim();
+    const email = form.email.trim().toLowerCase();
+    const id = form.idNumber.trim();
+
+    if (!name) newErrors.push("El nombre es obligatorio.");
+    if (!email) newErrors.push("El correo es obligatorio.");
     if (!form.birthDate) newErrors.push("La fecha de nacimiento es obligatoria.");
     if (!form.phone) newErrors.push("El teléfono es obligatorio.");
     if (!form.sex) newErrors.push("El sexo es obligatorio.");
-    if (!form.email) newErrors.push("El email es obligatorio.");
+    if (!id) newErrors.push("La cédula es obligatoria.");
+
     if (!form.password) newErrors.push("La contraseña es obligatoria.");
     if (form.password.length < 6)
-      newErrors.push("La contraseña debe tener al menos 6 caracteres.");
+      newErrors.push("La contraseña debe tener mínimo 6 caracteres.");
+
     if (form.password !== form.confirmPassword)
       newErrors.push("Las contraseñas no coinciden.");
 
     return newErrors;
   };
 
+  // --------------------------
+  // MANEJO DE ERRORES FIREBASE
+  // --------------------------
+  const firebaseErrorMessage = (code) => {
+    const messages = {
+      "auth/email-already-in-use": "Este correo ya está registrado.",
+      "auth/invalid-email": "El correo no es válido.",
+      "auth/weak-password": "La contraseña es demasiado débil.",
+      default: "Ocurrió un error al registrar el usuario."
+    };
+    return messages[code] || messages.default;
+  };
+
+  // --------------------------
+  // ENVÍO DEL FORMULARIO
+  // --------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
@@ -55,31 +81,48 @@ function RegisterPage() {
     }
 
     try {
-      // 🔥 Crear usuario en Firebase
+      // Verificar si la cédula ya existe
+      const q = query(
+        collection(db, "users"),
+        where("idNumber", "==", form.idNumber.trim())
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        setErrors(["Esta cédula ya está registrada."]);
+        return;
+      }
+
+      // Crear usuario en Firebase Auth
       const res = await createUserWithEmailAndPassword(
         auth,
-        form.email,
+        form.email.trim().toLowerCase(),
         form.password
       );
 
       const user = res.user;
 
-      // 🔥 Guardar información extra en Firestore
+      // Guardar los datos en Firestore
       await setDoc(doc(db, "users", user.uid), {
-        name: form.name,
-        idNumber: form.idNumber,
+        uid: user.uid,
+        name: form.name.trim(),
+        idNumber: form.idNumber.trim(),
         birthDate: form.birthDate,
-        phone: form.phone,
+        phone: form.phone.trim(),
         sex: form.sex,
-        email: form.email,
-        createdAt: new Date(),
+        email: form.email.trim().toLowerCase(),
+        role: "user",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+        status: "active",
       });
 
-      setSuccess("Registro completado correctamente.");
+      setSuccess("Registro exitoso. Redirigiendo...");
       setTimeout(() => navigate("/login"), 1500);
+
     } catch (err) {
       console.error(err);
-      setErrors(["Error al registrar al usuario."]);
+      setErrors([firebaseErrorMessage(err.code)]);
     }
   };
 
@@ -107,9 +150,9 @@ function RegisterPage() {
               <div className="alert alert-success text-center py-2">{success}</div>
             )}
 
+            {/* FORMULARIO */}
             <form onSubmit={handleSubmit}>
 
-              {/* Campos existentes + email */}
               <div className="mb-3">
                 <label className="form-label">Correo electrónico</label>
                 <input
@@ -179,7 +222,6 @@ function RegisterPage() {
                 </select>
               </div>
 
-              {/* Contraseñas */}
               <div className="mb-3">
                 <label className="form-label">Contraseña</label>
                 <input

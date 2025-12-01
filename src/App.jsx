@@ -9,12 +9,12 @@ import GuestOnly from "./auth/GuestOnly.jsx";
 
 // PÁGINAS PRINCIPALES
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
-import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+import LoginModern from "./pages/LoginPageModern/LoginModern.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ForgotPage from "./pages/ForgotPage/ForgotPage.jsx";
 import ResetPage from "./pages/ResetPage/ResetPage.jsx";
 
-// PLAYGROUND - HOOKS
+// PLAYGROUND
 import HomeHooks from "./playground/HomeHooks.jsx";
 import UseStateDemo from "./playground/UseStateDemo.jsx";
 import UseEffectDemo from "./playground/UseEffectDemo.jsx";
@@ -29,16 +29,15 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-        {/* RUTA PADRE CON LAYOUT (Navbar + Footer) */}
+        {/* RUTA PADRE */}
         <Route path="/" element={<MainLayout />}>
 
-          {/* Página inicial → solo invitados */}
+          {/* Página inicial: LOGIN MODERNO */}
           <Route
             index
             element={
               <GuestOnly>
-                <LoginPage />
+                <LoginModern />
               </GuestOnly>
             }
           />
@@ -48,7 +47,7 @@ export default function App() {
             path="login"
             element={
               <GuestOnly>
-                <LoginPage />
+                <LoginModern />
               </GuestOnly>
             }
           />
